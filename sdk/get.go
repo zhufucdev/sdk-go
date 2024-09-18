@@ -41,6 +41,7 @@ func GetReleaseAsset(baseUrl string, query UpdateQuery) (*ReleaseAsset, error) {
 	}
 
 	decoder := json.NewDecoder(res.Body)
+	defer res.Body.Close()
 	var result ReleaseAsset
 	err = decoder.Decode(&result)
 	if err != nil {
