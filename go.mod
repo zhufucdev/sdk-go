@@ -1,1 +1,1 @@
-module sdk_go
+module github.com/zhufucdev/sdk_go
