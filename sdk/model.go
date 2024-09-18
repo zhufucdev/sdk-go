@@ -37,13 +37,14 @@ type UpdateQuery struct {
 }
 
 type ReleaseAsset struct {
-	VersionName string
-	ProductName string
-	Url         string
+	VersionName string `json:"versionName,omitempty"`
+	ProductName string `json:"productName,omitempty"`
+	Extension   string `json:"extension,omitempty"`
+	Url         string `json:"url,omitempty"`
 }
 
 type ProductQuery struct {
-	Name     string
-	Key      string
-	Category []string
+	Name     string   `json:"name,omitempty"`
+	Key      string   `json:"key,omitempty"`
+	Category []string `json:"category,omitempty"`
 }

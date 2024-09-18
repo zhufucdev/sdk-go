@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/sdk_go.iml" filepath="$PROJECT_DIR$/sdk_go.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sdk-go.iml" filepath="$PROJECT_DIR$/sdk-go.iml" />
     </modules>
   </component>
 </project>
