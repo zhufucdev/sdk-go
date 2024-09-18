@@ -2,17 +2,22 @@ package sdk
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"net/http"
 	u "net/url"
 )
 
-func GetReleaseAsset(baseUrl string, query UpdateQuery) (ReleaseAsset, error) {
+func GetReleaseAsset(baseUrl string, query UpdateQuery) (*ReleaseAsset, error) {
 	url, err := u.Parse(fmt.Sprintf("%s/release", baseUrl))
 	if err != nil {
-		return ReleaseAsset{}, err
+		return nil, err
 	}
 	queryValues := make(u.Values)
+	if query.Product == "" {
+		return nil, errors.New("product required")
+	}
+	queryValues.Set("product", query.Product)
 	if query.Arch != NoArch {
 		queryValues.Set("arch", query.Arch.String())
 	}
@@ -24,16 +29,22 @@ func GetReleaseAsset(baseUrl string, query UpdateQuery) (ReleaseAsset, error) {
 	}
 	url.RawQuery = queryValues.Encode()
 
-	httpResponse, err := http.Get(url.String())
+	res, err := http.Get(url.String())
 	if err != nil {
-		return ReleaseAsset{}, err
+		return nil, err
+	}
+	if res.StatusCode >= 300 || res.StatusCode < 200 {
+		if res.StatusCode == http.StatusNotFound {
+			return nil, nil
+		}
+		return nil, fmt.Errorf("http error: %s", res.Status)
 	}
 
-	decoder := json.NewDecoder(httpResponse.Body)
+	decoder := json.NewDecoder(res.Body)
 	var result ReleaseAsset
 	err = decoder.Decode(&result)
 	if err != nil {
-		return ReleaseAsset{}, err
+		return nil, err
 	}
-	return result, nil
+	return &result, nil
 }
