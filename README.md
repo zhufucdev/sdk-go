@@ -7,7 +7,7 @@ with no library overhead.
 ## Getting started
 Go with me,
 ```shell
-go install github.com/zhufucdev/sdk_go@v0.0.2
+go install github.com/zhufucdev/sdk-go@v0.0.3
 ```
 Now check for update with `UpdateQuery` and stuff,
 ```go

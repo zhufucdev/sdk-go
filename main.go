@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/zhufucdev/sdk_go/sdk"
+	"github.com/zhufucdev/sdk-go/sdk"
 )
 
 func main() {
